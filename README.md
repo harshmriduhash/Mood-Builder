@@ -1,10 +1,8 @@
-# Mood Builder - BUIDL AI 2025 Hackathon
+# Mood Builder - BUIDL AI 2025
 
 Mood Builder - An AI-powered mood journaling platform designed to enhance your mental wellbeing by providing actionable insights, personalized feedback, and an interactive AI agent to support your emotional health journey.
 
-###### Team Name: Indie Builder
-###### Team Member: Hieu Ho (Alex)
-
+### https://moodbuilder.vercel.app/ ###
 ---
 # Why Mood Builder?
 
