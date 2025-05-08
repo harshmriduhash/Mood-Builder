@@ -1,10 +1,16 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Lightbulb, Loader2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { CountdownTimerModal } from "@/components/countdown-timer-modal"
+import { useState } from "react";
+import { Lightbulb, Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { CountdownTimerModal } from "@/components/countdown-timer-modal";
 
 // Mood-enhancing activities instead of journal prompts
 const moodEnhancingActivities = [
@@ -33,26 +39,30 @@ const moodEnhancingActivities = [
     description: "Imagine yourself succeeding at your current challenge",
     duration: "3 min",
   },
-]
+];
 
 interface JournalSuggestionsProps {
-  className?: string
+  className?: string;
 }
 
 export function JournalSuggestions({ className }: JournalSuggestionsProps) {
-  const [activities, setActivities] = useState(moodEnhancingActivities)
-  const [loading, setLoading] = useState(false)
-  const [isTimerOpen, setIsTimerOpen] = useState(false)
-  const [selectedActivity, setSelectedActivity] = useState<(typeof moodEnhancingActivities)[0] | null>(null)
+  const [activities, setActivities] = useState(moodEnhancingActivities);
+  const [loading, setLoading] = useState(false);
+  const [isTimerOpen, setIsTimerOpen] = useState(false);
+  const [selectedActivity, setSelectedActivity] = useState<
+    (typeof moodEnhancingActivities)[0] | null
+  >(null);
 
-  const handleActivityClick = (activity: (typeof moodEnhancingActivities)[0]) => {
-    setSelectedActivity(activity)
-    setIsTimerOpen(true)
-  }
+  const handleActivityClick = (
+    activity: (typeof moodEnhancingActivities)[0]
+  ) => {
+    setSelectedActivity(activity);
+    setIsTimerOpen(true);
+  };
 
   const handleCloseTimer = () => {
-    setIsTimerOpen(false)
-  }
+    setIsTimerOpen(false);
+  };
 
   // If the component is used directly in the dashboard, we don't need the Card wrapper
   if (className?.includes("border-none")) {
@@ -66,14 +76,23 @@ export function JournalSuggestions({ className }: JournalSuggestionsProps) {
         ) : (
           <ul className="space-y-3">
             {activities.map((item, index) => (
-              <li key={index} className="group rounded-lg border border-zinc-100 p-3 shadow-sm">
+              <li
+                key={index}
+                className="group rounded-lg border border-zinc-100 p-3 shadow-sm"
+              >
                 <div className="flex items-center justify-between">
                   <div className="flex flex-col">
-                    <span className="font-medium text-zinc-900">{item.activity}</span>
-                    <span className="text-xs text-zinc-500">{item.description}</span>
+                    <span className="font-medium text-zinc-900">
+                      {item.activity}
+                    </span>
+                    <span className="text-xs text-zinc-500">
+                      {item.description}
+                    </span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-xs text-zinc-500">{item.duration}</span>
+                    <span className="text-xs text-zinc-500">
+                      {item.duration}
+                    </span>
                     <Button
                       variant="outline"
                       size="sm"
@@ -89,9 +108,13 @@ export function JournalSuggestions({ className }: JournalSuggestionsProps) {
           </ul>
         )}
 
-        <CountdownTimerModal isOpen={isTimerOpen} onClose={handleCloseTimer} activity={selectedActivity} />
+        <CountdownTimerModal
+          isOpen={isTimerOpen}
+          onClose={handleCloseTimer}
+          activity={selectedActivity}
+        />
       </div>
-    )
+    );
   }
 
   // Default view with Card wrapper for sidebar - this is no longer used but kept for compatibility
@@ -122,7 +145,9 @@ export function JournalSuggestions({ className }: JournalSuggestionsProps) {
                   <div className="flex w-full flex-col">
                     <div className="flex items-center justify-between">
                       <span className="font-medium">{item.activity}</span>
-                      <span className="text-xs text-zinc-500">{item.duration}</span>
+                      <span className="text-xs text-zinc-500">
+                        {item.duration}
+                      </span>
                     </div>
                     <span className="line-clamp-1 text-xs text-zinc-500 group-hover:text-zinc-700">
                       {item.description}
@@ -134,8 +159,12 @@ export function JournalSuggestions({ className }: JournalSuggestionsProps) {
           </ul>
         )}
 
-        <CountdownTimerModal isOpen={isTimerOpen} onClose={handleCloseTimer} activity={selectedActivity} />
+        <CountdownTimerModal
+          isOpen={isTimerOpen}
+          onClose={handleCloseTimer}
+          activity={selectedActivity}
+        />
       </CardContent>
     </Card>
-  )
+  );
 }
