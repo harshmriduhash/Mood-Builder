@@ -1,19 +1,25 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Textarea } from "@/components/ui/textarea"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { Loader2, FileText, AlertCircle } from "lucide-react"
-import { analyzeMoodWithSolarPro } from "@/lib/actions/analyze-mood-v2"
-import MoodAnalysisResult from "@/components/mood-analysis-result"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Textarea } from "@/components/ui/textarea";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Loader2, FileText, AlertCircle } from "lucide-react";
+import { analyzeMoodWithSolarPro } from "@/lib/actions/analyze-mood-v2";
+import MoodAnalysisResult from "@/components/mood-analysis-result";
 
 interface DocumentContentConfirmationProps {
-  content: string
-  onConfirm: (content: string, analysis: any) => void
-  onEdit: (content: string) => void
-  onCancel: () => void
+  content: string;
+  onConfirm: (content: string, analysis: any) => void;
+  onEdit: (content: string) => void;
+  onCancel: () => void;
 }
 
 export function DocumentContentConfirmation({
@@ -22,39 +28,39 @@ export function DocumentContentConfirmation({
   onEdit,
   onCancel,
 }: DocumentContentConfirmationProps) {
-  const [editedContent, setEditedContent] = useState(content)
-  const [isAnalyzing, setIsAnalyzing] = useState(false)
-  const [analysis, setAnalysis] = useState<any>(null)
-  const [error, setError] = useState<string | null>(null)
+  const [editedContent, setEditedContent] = useState(content);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [analysis, setAnalysis] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const handleAnalyze = async () => {
     if (!editedContent.trim()) {
-      setError("Content cannot be empty")
-      return
+      setError("Content cannot be empty");
+      return;
     }
 
-    setIsAnalyzing(true)
-    setError(null)
+    setIsAnalyzing(true);
+    setError(null);
 
     try {
-      console.log("Analyzing content with Solar Pro model...")
-      const result = await analyzeMoodWithSolarPro(editedContent)
-      setAnalysis(result)
+      console.log("Analyzing content with Solar Pro model...");
+      const result = await analyzeMoodWithSolarPro(editedContent);
+      setAnalysis(result);
     } catch (err) {
-      console.error("Error analyzing mood with Solar Pro:", err)
-      setError("Failed to analyze mood. Please try again.")
+      console.error("Error analyzing mood with Solar Pro:", err);
+      setError("Failed to analyze mood. Please try again.");
     } finally {
-      setIsAnalyzing(false)
+      setIsAnalyzing(false);
     }
-  }
+  };
 
   const handleConfirm = () => {
     if (!analysis) {
-      setError("Please analyze the content first")
-      return
+      setError("Please analyze the content first");
+      return;
     }
-    onConfirm(editedContent, analysis)
-  }
+    onConfirm(editedContent, analysis);
+  };
 
   return (
     <Card className="w-full">
@@ -66,7 +72,9 @@ export function DocumentContentConfirmation({
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-2">
-          <p className="text-sm font-medium text-zinc-700">Review and edit the extracted text from your document:</p>
+          <p className="text-sm font-medium text-zinc-700">
+            Review and edit the extracted text from your document:
+          </p>
           <Textarea
             value={editedContent}
             onChange={(e) => setEditedContent(e.target.value)}
@@ -110,12 +118,15 @@ export function DocumentContentConfirmation({
               )}
             </Button>
           ) : (
-            <Button onClick={handleConfirm} className="bg-green-600 text-white hover:bg-green-700">
+            <Button
+              onClick={handleConfirm}
+              className="bg-green-600 text-white hover:bg-green-700"
+            >
               Save Journal Entry
             </Button>
           )}
         </div>
       </CardFooter>
     </Card>
-  )
+  );
 }
