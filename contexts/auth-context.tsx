@@ -54,6 +54,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     checkAuth();
   }, []);
 
+
+  
   const signIn = async (username: string, password: string) => {
     // Simple validation against hardcoded credentials
     if (username === VALID_USERNAME && password === VALID_PASSWORD) {
