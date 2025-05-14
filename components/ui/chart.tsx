@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { Tooltip } from "@/components/ui/tooltip"
+import { Tooltip } from "@/components/ui/tooltip";
 
-import type * as React from "react"
-import { cn } from "@/lib/utils"
+import type * as React from "react";
+import { cn } from "@/lib/utils";
 
 // Re-export Recharts components
 export {
@@ -27,20 +27,25 @@ export {
   Tooltip,
   XAxis,
   YAxis,
-} from "recharts"
+} from "recharts";
 
 interface ChartConfig {
   [key: string]: {
-    label: string
-    color: string
-  }
+    label: string;
+    color: string;
+  };
 }
 
 interface ChartContainerProps extends React.HTMLAttributes<HTMLDivElement> {
-  config: ChartConfig
+  config: ChartConfig;
 }
 
-export function ChartContainer({ children, config, className, ...props }: ChartContainerProps) {
+export function ChartContainer({
+  children,
+  config,
+  className,
+  ...props
+}: ChartContainerProps) {
   return (
     <div
       className={cn("h-[350px] w-full", className)}
@@ -54,7 +59,7 @@ export function ChartContainer({ children, config, className, ...props }: ChartC
               ...acc,
               [`--color-${key}`]: value.color,
             }),
-            {},
+            {}
           ),
         } as React.CSSProperties
       }
@@ -62,11 +67,12 @@ export function ChartContainer({ children, config, className, ...props }: ChartC
     >
       {children}
     </div>
-  )
+  );
 }
 
-interface ChartTooltipProps extends React.ComponentPropsWithoutRef<typeof Tooltip> {
-  className?: string
+interface ChartTooltipProps
+  extends React.ComponentPropsWithoutRef<typeof Tooltip> {
+  className?: string;
 }
 
 export function ChartTooltip({ className, ...props }: ChartTooltipProps) {
@@ -83,26 +89,30 @@ export function ChartTooltip({ className, ...props }: ChartTooltipProps) {
       }}
       {...props}
     />
-  )
+  );
 }
 
 interface ChartTooltipContentProps {
-  active?: boolean
+  active?: boolean;
   payload?: Array<{
-    name: string
-    value: string | number
+    name: string;
+    value: string | number;
     payload: {
-      name: string
-      value: string | number
-      [key: string]: any
-    }
-  }>
-  label?: string
+      name: string;
+      value: string | number;
+      [key: string]: any;
+    };
+  }>;
+  label?: string;
 }
 
-export function ChartTooltipContent({ active, payload, label }: ChartTooltipContentProps) {
+export function ChartTooltipContent({
+  active,
+  payload,
+  label,
+}: ChartTooltipContentProps) {
   if (!active || !payload?.length) {
-    return null
+    return null;
   }
 
   return (
@@ -118,12 +128,15 @@ export function ChartTooltipContent({ active, payload, label }: ChartTooltipCont
                   backgroundColor: `var(--color-${item.name})`,
                 }}
               />
-              <span className="text-muted-foreground">{item.payload.config?.[item.name]?.label || item.name}</span>
+              <span className="text-muted-foreground">
+                {item.payload.config?.[item.name]?.label || item.name}
+              </span>
             </div>
             <span className="font-medium">{item.value}</span>
           </div>
         ))}
       </div>
     </div>
-  )
+  );
 }
+
